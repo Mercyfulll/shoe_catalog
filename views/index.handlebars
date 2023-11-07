@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="header">
+            <img class="luu" src="/Luushoes.PNG">
+            <h1>Luu Shoes</h1>
+    </div>
+    <div class="filter">
+        <h4>Filters</h4>
+        <form action="/shoes/brand/:brandname/size/:size"></form>
+            <form action="/shoes/brand/:brandname" method="post">
+                <select class="brand" name="brand" onchange="form.submit()" >
+                    <option>Select Brand</option>
+                    <option value="">All</option>
+                    <option value="Adidas">Adidas</option>
+                    <option value="Nike">Nike</option>
+                    <option value="Puma">Puma</option>
+                </select>
+            </form>
+            <form action="/shoes/size/:size" method="post">
+                <select class="size" name="size" onchange="form.submit()">
+                    <option>Select Size</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                </select>
+                <button></button>
+            </form>
+        </form>
+    </div>
+    <h3>Whether you're hitting the streets, the gym, or simply strolling around, sneakers are your trusty companions that blend fashion with functionality. So, lace up your favorite pair and step into a world of both comfort and confidence.</h3>
+    <div class="items">
+        {{#each shoes.displayShoes}}
+            <div class="item">
+                 <img class="lu" src={{this.image_url}}><br>
+                 <span>{{this.shoename}}</span><br>
+                 <span>{{this.brand}}</span><br>
+                 <span>R {{this.price}}</span><br>
+                 <br>
+                 <button>Add cart</button>
+            </div>
+        {{/each}}
+        {{#each brands.displayShoesByBrand}}
+            <div class="item">
+                 <img class="lu" src={{this.image_url}}><br>
+                 <span>{{this.shoename}}</span><br>
+                 <span>{{this.brand}}</span><br>
+                 <span>R {{this.price}}</span><br>
+                 <br>
+                 <button>Add cart</button>
+            </div>
+        {{/each}}
+        {{#each sizes.displayShoesBySize}}
+            <div class="item">
+                 <img class="lu" src={{this.image_url}}><br>
+                 <span>{{this.shoename}}</span><br>
+                 <span>{{this.brand}}</span><br>
+                 <span>R {{this.price}}</span><br>
+                 <br>
+                 <button>Add cart</button>
+            </div>
+        {{/each}}
+        {{#each filtered.displayShoesByBrandAndSize}}
+            <div class="item">
+                 <img class="lu" src={{this.image_url}}><br>
+                 <span>{{this.shoename}}</span><br>
+                 <span>{{this.brand}}</span><br>
+                 <span>R {{this.price}}</span><br>
+                 <br>
+                 <button>Add cart</button>
+            </div>
+        {{/each}}
+        
+    </div>
+</div>
