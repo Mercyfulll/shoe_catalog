@@ -38,9 +38,17 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/',route.home)
+app.get('/login',function (req,res){
+    res.render('login')
+})
+app.get('/signup',function (req,res){
+    res.render('signup')
+})
+
 app.post('/shoes/brand/:brandname',route.filterBrand)
 app.post('/shoes/size/:size',route.filterSize)
 app.post('/shoes/brand/:brandname/size/:size',route.filterBrandSize)
+app.post('/api/shoes/color/:color',route.filterColor)
 
 const PORT = process.env.PORT || 3001
 

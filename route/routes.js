@@ -68,7 +68,23 @@ export default function routes(db){
                                             res.render("index",{filtered})
             }
         } catch (error) {
-            
+            console.log(error)
+        }
+    }
+
+    async function filterColor(req,res){
+        try {
+            const shoe_color = req.body.shoe_color
+
+            if(shoe_color){
+                const color = await axios.get(`https://shoe-api-xpy7.onrender.com/api/shoes/color/${shoe_color}`)
+                                         .then(function(result){
+                                            return result.data
+                                         })
+                                         res.render("index",{color}) 
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -76,6 +92,7 @@ export default function routes(db){
         home,
         filterBrand,
         filterSize,
+        filterColor,
         filterBrandSize
        
     }
