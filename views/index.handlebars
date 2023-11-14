@@ -1,23 +1,44 @@
 <div class="container">
     <div class="header">
-            <img class="luu" src="/Luushoes.PNG">
+        <img class="luu" src="/Luushoes.PNG">
+        <a style="text-decoration:none" href="/">
             <h1>Luu Shoes</h1>
+        </a>
+    </div>
+    <h3>Whether you're hitting the streets, the gym, or simply strolling around, sneakers are your trusty companions
+        that blend fashion with functionality. So, lace up your favorite pair and step into a world of both comfort and
+        confidence.</h3>
+    <div class="gender">
+        <div class="female-sneakers">
+            <div class="inner-content">
+                <h2>Women</h2>
+                <a href="/shoes/gender/Women"><button class="shop">Shop now</button></a>
+            </div>
+        </div>
+        <div class="male-sneakers">
+            <div class="inner-content1">
+                <h2>Men</h2>
+                <a href="/shoes/gender/Men"><button class="shop">Shop now</button></a>
+            </div>
+        </div>
     </div>
     <div class="filter">
         <h4>Filters</h4>
-            <form action="/shoes/brand/:brandname" method="post">
-                <select class="brand" name="brand" >
-                    <option>Select Brand</option>
-                    <option value="">All</option>
+        <div class="filters">
+        <form action="/shoes/filter" method="post">
+            
+                <label for="brand">Brand:</label>
+                <select id="brand" class="brand" name="brand">
+                    <option value="">Select Brand</option>
+                    <option value="All">All</option>
                     <option value="Adidas">Adidas</option>
                     <option value="Nike">Nike</option>
-                    <option value="Puma">Puma</option>    
+                    <option value="Puma">Puma</option>
                 </select>
-                <button type="submit">By Brand</button>
-            </form>
-            <form action="/shoes/size/:size" method="post">
-                <select class="size" name="size">
-                    <option>Select Size</option>
+
+                <label for="size">Size:</label>
+                <select id="size" class="size" name="size">
+                    <option value="">Select Size</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
@@ -26,10 +47,10 @@
                     <option value="8">8</option>
                     <option value="9">9</option>
                 </select>
-                <button type="submit">By Size</button>
-            </form>
-            <form action="/api/shoes/color/:color" method="post">
-                <select class="color" name="color">
+
+                <label for="color">Color:</label>
+                <select id="color" class="color" name="color">
+                    <option value="">Select Color</option>
                     <option value="Black">Black</option>
                     <option value="White">White</option>
                     <option value="Grey">Grey</option>
@@ -40,63 +61,97 @@
                     <option value="Orange">Orange</option>
                     <option value="Yellow">Yellow</option>
                 </select>
-                <button type="submit">By Color</button>
-            </form>
-             
-        
+            
+            <button type="submit">Filter</button>
+        </form>
+        </div>
     </div>
-    <h3>Whether you're hitting the streets, the gym, or simply strolling around, sneakers are your trusty companions that blend fashion with functionality. So, lace up your favorite pair and step into a world of both comfort and confidence.</h3>
+
     <div class="items">
+        <span>{{messages.error}}</span>
         {{#each shoes.displayShoes}}
-            <div class="item">
-                 <img class="lu" src={{this.image_url}}><br>
-                 <span>{{this.shoename}}</span><br>
-                 <span>{{this.brand}}</span><br>
-                 <span>R {{this.price}}</span><br>
-                 <br>
-                 <button>Add cart</button>
-            </div>
+        <div class="item">
+            <a class="view-shoe" href="/shoes/shoe/{{this.shoename}}">
+                <img class="lu" src={{this.image_url}}><br>
+                <span>{{this.shoename}}</span><br>
+                <span>{{this.brand}}</span><br>
+                <span>R {{this.price}}</span><br>
+                <br>
+            </a>
+        </div>
         {{/each}}
         {{#each brands.displayShoesByBrand}}
-            <div class="item">
-                 <img class="lu" src={{this.image_url}}><br>
-                 <span>{{this.shoename}}</span><br>
-                 <span>{{this.brand}}</span><br>
-                 <span>R {{this.price}}</span><br>
-                 <br>
-                 <button>Add cart</button>
-            </div>
+        <div class="item">
+            <a class="view-shoe" href="/shoes/shoe/{{this.shoename}}">
+                <img class="lu" src={{this.image_url}}><br>
+                <span>{{this.shoename}}</span><br>
+                <span>{{this.brand}}</span><br>
+                <span>R {{this.price}}</span><br>
+                <br>
+            </a>
+        </div>
         {{/each}}
         {{#each sizes.displayShoesBySize}}
-            <div class="item">
-                 <img class="lu" src={{this.image_url}}><br>
-                 <span>{{this.shoename}}</span><br>
-                 <span>{{this.brand}}</span><br>
-                 <span>R {{this.price}}</span><br>
-                 <br>
-                 <button>Add cart</button>
-            </div>
+        <div class="item">
+            <a class="view-shoe" href="/shoes/shoe/{{this.shoename}}">
+                <img class="lu" src={{this.image_url}}><br>
+                <span>{{this.shoename}}</span><br>
+                <span>{{this.brand}}</span><br>
+                <span>R {{this.price}}</span><br>
+                <br>
+            </a>
+        </div>
         {{/each}}
         {{#each filtered.displayShoesByBrandAndSize}}
-            <div class="item">
-                 <img class="lu" src={{this.image_url}}><br>
-                 <span>{{this.shoename}}</span><br>
-                 <span>{{this.brand}}</span><br>
-                 <span>R {{this.price}}</span><br>
-                 <br>
-                 <button>Add cart</button>
-            </div>
+        <div class="item">
+            <a class="view-shoe" href="/shoes/shoe/{{this.shoename}}" name="{{this.shoename}}">
+                <img class="lu" src={{this.image_url}}><br>
+                <span>{{this.shoename}}</span><br>
+                <span>{{this.brand}}</span><br>
+                <span>R {{this.price}}</span><br>
+                <br>
+            </a>
+        </div>
         {{/each}}
         {{#each color.displayShoesByColor}}
-            <div class="item">
-                 <img class="lu" src={{this.image_url}}><br>
-                 <span>{{this.shoename}}</span><br>
-                 <span>{{this.brand}}</span><br>
-                 <span>R {{this.price}}</span><br>
-                 <br>
-                 <button>Add cart</button>
-            </div>
+        <div class="item">
+            <a class="view-shoe" href="/shoes/shoe/{{this.shoename}}">
+                <img class="lu" src={{this.image_url}}><br>
+                <span>{{this.shoename}}</span><br>
+                <span>{{this.brand}}</span><br>
+                <span>R {{this.price}}</span><br>
+                <br>
+            </a>
+        </div>
         {{/each}}
-        
+        {{#each sizeAndBrand.displayShoesByBrandAndSize}}
+        <div class="item">
+            <a class="view-shoe" href="/shoes/shoe/{{this.shoename}}">
+                <img class="lu" src={{this.image_url}}><br>
+                <span>{{this.shoename}}</span><br>
+                <span>{{this.brand}}</span><br>
+                <span>R {{this.price}}</span><br>
+                <br>
+            </a>
+        </div>
+        {{/each}}
+        {{#each allFilters.allOptions}}
+        <div class="item">
+            <a class="view-shoe" href="/shoes/shoe/{{this.shoename}}">
+                <img class="lu" src={{this.image_url}}><br>
+                <span>{{this.shoename}}</span><br>
+                <span>{{this.brand}}</span><br>
+                <span>R {{this.price}}</span><br>
+                <br>
+            </a>
+        </div>
+        {{/each}}
+
     </div>
 </div>
+<footer>
+    <div class="footer-info">
+        <p class="footer">&copy; 2023 Luu Shoes. All rights reserved.</p>
+        <p>Designed by Luu Shoes</p>
+    </div>
+</footer>

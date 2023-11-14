@@ -25,6 +25,23 @@ app.use(session({
     saveUninitialized: true
 }));
 
+// Middleware to add cart to every request
+app.use((req, res, next) => {
+    if (!req.session.cart) {
+        req.session.cart = [];
+    }
+    next();
+});
+
+
+// Middleware to check if the user is logged in
+const requireLogin = (req, res, next) => {
+    if (req.session.userId) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+};
 app.use(flash());
 
 // set and callback engine 
@@ -38,17 +55,39 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.get('/',route.home)
+app.get('/shoes/shoe/:shoe',route.shoeSpecs)
 app.get('/login',function (req,res){
     res.render('login')
 })
+
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    const user = users.find(u => u.username === username && u.password === password);
+    if (user) {
+        req.session.userId = user.id;
+        res.redirect('/');
+    } else {
+        res.redirect('/login');
+    }
+});
 app.get('/signup',function (req,res){
     res.render('signup')
 })
+app.get('/shoes/gender/Men',route.maleShoes)
+app.get('/shoes/gender/Women',route.femaleShoes)
 
-app.post('/shoes/brand/:brandname',route.filterBrand)
-app.post('/shoes/size/:size',route.filterSize)
-app.post('/shoes/brand/:brandname/size/:size',route.filterBrandSize)
-app.post('/api/shoes/color/:color',route.filterColor)
+app.post('/shoes/shoe/:shoe',route.shoeSpecs)
+app.post('/shoes/filter',route.filterAll)
+app.post('/addToCart/:itemId', (req, res) => {
+    const itemId = req.params.itemId;
+    const item = route.getShoesById(itemId);
+    if (item) {
+
+        req.session.cart.push(item);
+
+    }
+    res.redirect('/');
+});
 
 const PORT = process.env.PORT || 3001
 

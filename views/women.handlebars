@@ -1,0 +1,22 @@
+<head>
+    <title>Women</title>
+</head>
+<body>
+     <div class="header">
+            <img class="luu" src="/Luushoes.PNG">
+            <a style="text-decoration:none" href="/"><h1>Luu Shoes</h1></a>
+    </div>
+    <h3 class="h3">Shoes for Women Who Run the World</h3>
+    <div class="items">
+        {{#each femaleShoes.genderShoe}}
+            <div class="item">
+                        <a class="view-shoe" href="/shoes/shoe/{{this.shoename}}">
+                            <img class="lu" src={{this.image_url}}><br>
+                            <span >{{this.shoename}}</span><br>
+                            <span>{{this.brand}}</span><br>
+                            <span>R {{this.price}}</span><br>
+                            <br>
+                        </a>
+                </div>
+        {{/each}}
+</body>

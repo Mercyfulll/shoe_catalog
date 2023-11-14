@@ -5,6 +5,18 @@
     display: flex;
     background-color: #F5F5F5;
 }
+footer{
+    background-color: #F5F5F5;
+    text-align: center;
+    height: 5em;
+    font-weight: 600;
+    margin-top: 1em;
+    padding: 1em;
+}
+.footer,
+.footer-info{
+    margin-top: 2em;
+}
 h1{
   margin-top: 0.8em;
   margin-left: 0.5em;
@@ -14,13 +26,53 @@ h1{
   background-clip: text;
   -webkit-background-clip: text;
 }
+.gender,
+.shoeSpec{
+    justify-content: center;
+    display:flex;
+
+}
+.female-sneakers{
+    background-image: url(../Womens.jpg);
+}
+.male-sneakers{
+    background-image: url(../Mens.PNG);
+}
+.female-sneakers,
+.male-sneakers{
+    width: 42.5%;
+    height: 20em;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.inner-content{
+    color: #fff;
+    text-align: center
+}
+.inner-content1{
+    color: #fff;
+    text-align: center;
+}
+.inner-content,
+.inner-content1{
+    margin-top: 9em;
+}
+.shop{
+    padding: 1em;
+    border-radius: 25px;
+    color: #fff;
+    font-family: Tahoma, sans-serif;
+    background-color: #181717 ;
+}
 .filter{
     margin: auto;
-    margin: auto;
     text-align: center;
-    border: 1px dotted;
+    /* border: 1px dotted; */
     width: 85%;
     padding-bottom: 0.3em;
+}
+.filters{
+    display: inline-flex;
 }
 h3{
     margin-left: auto;
@@ -97,12 +149,46 @@ h3{
 .login,.signup{
     margin-bottom: 1em;
 }
+.view-shoe{
+    text-decoration: none;
+
+}
+.shoe-gallery{
+    width: 45%; 
+}
+.order-details{
+    width: 30%;
+    margin-top: 3em;
+}
+.order-view-picture{
+    height: 27em;
+    width: 25em;
+}
+.order-color-picture{
+    height: 4em;
+    width: 4em;
+}
+.shoe-name{
+    font-size: larger;
+    font-weight: 600;
+}
+.shoe-price{
+    font-weight: 500;
+}
+.add-cart{
+    margin-top: 2em;
+    padding: 1em;
+    width: 80%;
+    color: #fff;
+    background-color: #ee4b2b;
+    margin-bottom:1em;
+}
 
     @media (max-width: 768px) {
         /* CSS rules for tablets and smaller screens */
         body{
             width: 100%;
-            overflow-x: hidden;
+        
         }
         .header{
             display: flex;
@@ -130,7 +216,28 @@ h3{
             width: 40%;
             height: 15em;
         }
-      }
+        .gender {
+            flex-direction: column;
+            align-items: center;
+        }
+        .female-sneakers,
+        .male-sneakers{
+            width: 85%;
+            margin: 0;    
+        }
+        .inner-content,
+        .inner-content1{
+            margin-top: 5em;
+        }
+        .shoeSpec{
+            flex-direction: column;
+        }
+        .order-details{
+            width: 85%;
+        }
+
+    } 
+        
       
       @media (min-width: 1024px) {
         /* CSS rules for desktop screens */

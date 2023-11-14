@@ -1,0 +1,43 @@
+<head>
+    <title>Login Page</title>
+</head>
+<div class="header">
+    <img class="luu" src="/Luushoes.PNG">
+     <a style="text-decoration:none" href="/"><h1>Luu Shoes</h1></a>
+</div>
+<div class="shoeSpec">
+    <div class="shoe-gallery">
+        <h4 >{{shoeSpec.shoeSpecs.shoename}}</h4>
+        <img class="order-view-picture" src={{shoeSpec.shoeSpecs.image_url}}><br>
+    </div>
+    <div class="order-details">
+        <form action="/addToCart/{{shoeSpec.shoeSpecs.id}}" method="post">
+            <span>{{shoeSpec.shoeSpecs.gender}}</span><br>
+            <span class="shoe-name">{{shoeSpec.shoeSpecs.shoename}}</span><br>
+            <span>{{shoeSpec.shoeSpecs.brand}}</span><br>
+            <span class="shoe-price"><h4>R {{shoeSpec.shoeSpecs.price}}</h4></span><br>
+            <span>Color : {{shoeSpec.shoeSpecs.color}}</span><br>
+            <img class="order-color-picture" src={{shoeSpec.shoeSpecs.image_url}}><br>
+
+            <label for="shoe-size-selector">Select size </label>
+            <select class="shoe-size-selector" name="shoeSizeSelect" >
+                <option>Choose</option>
+                <option value="{{shoeSpec.shoeSpecs.size}}">{{shoeSpec.shoeSpecs.size}}</option>
+            </select><br> 
+            <div class="popup">
+            <span><a onclick="openPopup()" href={{shoeSpec.shoeSpecs.size_url}}> Size guide</a></span><br>
+            </div>
+            <button type="submit" class="add-cart">ADD TO CART</button>
+        </form>
+         <hr>
+        <h4>Return Policy</h4>
+         You can return your order for any reason, free of charge, within 30 days.
+    </div>
+</div>
+<script>
+  // Function to open the popup
+  function openPopup() {
+    var popup = document.getElementById(".popup");
+    popup.style.display = "flex";
+  }
+</script>
