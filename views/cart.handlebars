@@ -1,0 +1,30 @@
+<div class="cart-container">
+        <div class="cart">
+            <!-- Cart content goes here -->
+            <h3>Your Cart</h3> 
+
+            <table>
+                
+                <tr>
+                    <th>ID</th>
+                    <th>Shoename</th>
+                    <th>Color</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+                {{#each cart.theCart}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.shoename}}</td>
+                    <td>{{this.olor}}</td>
+                    <td><button class="decrease">-</button>{{this}}<button class="increase">+</button></td>
+                    <td>{{this.price}}</td>
+
+                </tr>
+                {{/each}}
+            </table>
+
+            
+        </div>
+        <button type="submit">Checkout</button>
+    </div>

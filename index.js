@@ -26,22 +26,22 @@ app.use(session({
 }));
 
 // Middleware to add cart to every request
-app.use((req, res, next) => {
-    if (!req.session.cart) {
-        req.session.cart = [];
-    }
-    next();
-});
+// app.use((req, res, next) => {
+//     if (!req.session.cart) {
+//         req.session.cart = [];
+//     }
+//     next();
+// });
 
 
 // Middleware to check if the user is logged in
-const requireLogin = (req, res, next) => {
-    if (req.session.userId) {
-        next();
-    } else {
-        res.redirect('/login');
-    }
-};
+// const requireLogin = (req, res, next) => {
+//     if (req.session.userId) {
+//         next();
+//     } else {
+//         res.redirect('/login');
+//     }
+// };
 app.use(flash());
 
 // set and callback engine 
@@ -56,38 +56,42 @@ app.use(bodyParser.json())
 
 app.get('/',route.home)
 app.get('/shoes/shoe/:shoe',route.shoeSpecs)
-app.get('/login',function (req,res){
+// app.get('/login',function (req,res){
+//     res.render('login')
+// })
+
+// app.post('/login', (req, res) => {
+//     const { username, password } = req.body;
+//     const user = users.find(u => u.username === username && u.password === password);
+//     if (user) {
+//         req.session.userId = user.id;
+//         res.redirect('/');
+//     } else {
+//         res.redirect('/login');
+//     }
+// });
+
+app.get('/cart', route.getCartItems) 
+app.post('/addToCart/:shoeid', route.addToCart)
+
+app.get('/signup',async function(req,res){
+    res.render('signup')
+})
+app.get('/login',async function(req,res){
     res.render('login')
 })
-
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
-        req.session.userId = user.id;
-        res.redirect('/');
-    } else {
-        res.redirect('/login');
-    }
-});
-app.get('/signup',function (req,res){
-    res.render('signup')
+app.post('/login',route.login)
+app.post('/signup',route.signingUp)
+app.get('/admin',function (req,res){
+    res.render('admin')
 })
 app.get('/shoes/gender/Men',route.maleShoes)
 app.get('/shoes/gender/Women',route.femaleShoes)
 
+app.post('/admin',route.addShoeAdmin)
 app.post('/shoes/shoe/:shoe',route.shoeSpecs)
 app.post('/shoes/filter',route.filterAll)
-app.post('/addToCart/:itemId', (req, res) => {
-    const itemId = req.params.itemId;
-    const item = route.getShoesById(itemId);
-    if (item) {
 
-        req.session.cart.push(item);
-
-    }
-    res.redirect('/');
-});
 
 const PORT = process.env.PORT || 3001
 

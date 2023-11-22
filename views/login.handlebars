@@ -9,9 +9,10 @@
     <div class="login-container">
         <h2>Login</h2>
         <form action="/login" method="post">
-            <input type="text" name="username" placeholder="Username" required>
+            <span>{{message}}</span>
+            <input type="text" name="usernamel" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
-            <button type="submit" class="login">Log In</button>
+            <button type="submit">Log In</button>
 
             Don't have an account?<a href="/signup">Create one</a>
         </form>

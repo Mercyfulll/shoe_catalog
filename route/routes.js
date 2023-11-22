@@ -1,6 +1,9 @@
 import axios from 'axios';
 import bcrypt from 'bcrypt';
 
+
+
+
 export default function routes(db){
 
     async function home(req,res){
@@ -18,19 +21,63 @@ export default function routes(db){
         try {
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
             const user = {
-                name : req.body.user,
+                username : req.body.username,
                 email : req.body.email,
-                password : hashedPassword,
+                user_password : hashedPassword,
                 
             } 
-                req.flash('success','Successfully registered')
-            res.render("login")
-           
+
+            const registering = await axios.post(`https://shoe-api-xpy7.onrender.com/users`, user)
+                                            .then(function(result){
+                                                result.data 
+                                            })
+                                            registering
+                                            
+                                            res.render('signup',{message : 'Successfully registered'})
         } catch (error) {
-            
+            console.log(error)
         }
 
     }
+
+    async function login(req,res){
+        try {
+            const userName = req.body.usernamel
+            const passWord = req.body.password
+            
+            const userEncryptedPassword = await axios.get(`https://shoe-api-xpy7.onrender.com/api/user/Mercy`)
+                                                     .then(function(result){
+                                                        return result.data.getHashedPassword.user_password
+                                                     })
+
+            const  isUserExisting = await axios.post(`https://shoe-api-xpy7.onrender.com/users/user`,userName)
+                                                .then(function(result){
+                                                    return result.data
+                                                })
+            console.log(userName, userEncryptedPassword)
+
+            const passwordMatch = bcrypt.compareSync(passWord, userEncryptedPassword)
+            console.log(passwordMatch)
+
+            if(isUserExisting && passwordMatch){
+                
+
+                const orderCode = await axios.get(`https://shoe-api-xpy7.onrender.com/order-cart/create?username=${userName}`)
+                                             .then(function(result){
+                                                return result.data.orderCode
+                                             })
+                orderCode
+                res.redirect('/')
+            }else{
+                res.render('login',{message: 'Incorect username or password'})
+            }
+            
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
      async function filterAll(req, res){
         try {
             const shoe_sizes = req.body.size
@@ -88,6 +135,8 @@ export default function routes(db){
 
     async function shoeSpecs(req,res){
         try {
+
+            const userName = req.body.usernamel
             const shoenamer = req.params.shoe
           
             const shoeSpec = await axios.get(`https://shoe-api-xpy7.onrender.com/api/shoes/shoe/${shoenamer}`)
@@ -130,7 +179,7 @@ export default function routes(db){
 
     async function getShoesById(req,res){
         try {
-            const idOfShoe = req.params.itemId
+            const idOfShoe = req.params.shoeid
 
             const shoeaded = await axios.get(`https://shoe-api-xpy7.onrender.com/api/shoes/${idOfShoe}`)
                                         .then((response)=>{
@@ -142,6 +191,69 @@ export default function routes(db){
             console.log(error)
         }
     } 
+    async function addShoeAdmin(req,res){
+        try {
+            const { shoename,color, brand, price, size, stock, image_url, gender, size_url } = req.body;
+            
+            console.log(shoename,color, brand, price, size, stock, image_url, gender, size_url)
+            // Create an object to represent the shoe
+            const shoe = {
+                shoename,
+                color,
+                brand,
+                price,
+                size,
+                stock,
+                image_url,
+                gender,
+                size_url
+            };
+
+            const adminAdd = await axios.post(`https://shoe-api-xpy7.onrender.com/shoes`,shoe)
+                                        .then(function(result){
+                                            result.data
+                                        }) 
+            adminAdd
+            res.render('admin',{messgage:'Shoe added successfully'})
+
+        } catch (error) {
+            console.log(error)
+        }
+        
+    }
+    async function addToCart(req,res){
+        try {
+            const userNAme = req.body.usernamel
+            const idOfShoe = req.params.shoeid
+
+            const shoeOrder ={
+                userNAme,
+                idOfShoe
+            } 
+
+            const oderedShoe = await axios.post(`https://shoe-api-xpy7.onrender.com/order`,shoeOrder)
+                                        .then(function(result){
+                                            return result.data
+                                        })                
+
+            oderedShoe
+            res.redirect('cart')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    async function getCartItems(req,res){
+        try {
+            const cart = await axios.get(`https://shoe-api-xpy7.onrender.com/order`)
+                                     .then(function(result){
+                                        return result.data
+                                     })
+                                     res.render('cart',{cart})
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return{
         home,
         signingUp,
@@ -149,7 +261,11 @@ export default function routes(db){
         shoeSpecs,
         femaleShoes,
         maleShoes,
-        getShoesById
+        getShoesById,
+        addShoeAdmin,
+        addToCart,
+        getCartItems,
+        login
        
     }
 } 

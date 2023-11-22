@@ -5,13 +5,16 @@
     display: flex;
     background-color: #F5F5F5;
 }
+/* .username-logged-in{
+    margin-left: 5em ;
+} */
 footer{
     background-color: #F5F5F5;
     text-align: center;
     height: 5em;
     font-weight: 600;
     margin-top: 1em;
-    padding: 1em;
+    padding: 1.3em;
 }
 .footer,
 .footer-info{
@@ -21,6 +24,7 @@ h1{
   margin-top: 0.8em;
   margin-left: 0.5em;
   font-weight: 600;
+  
   background-image: radial-gradient(#553c9a, #ee4b2b);
   color: transparent;
   background-clip: text;
@@ -74,7 +78,7 @@ h1{
 .filters{
     display: inline-flex;
 }
-h3{
+h3,.footer{
     margin-left: auto;
     margin-right: auto;
     width: 85%;
@@ -108,7 +112,8 @@ h3{
     
 }
 .signup-container,
-.login-container {
+.login-container,
+.admin-container {
     background-color: #ffffff;
     width: 300px;
     margin: auto;
@@ -123,12 +128,20 @@ h3{
     font-size: 24px;
     margin-bottom: 20px;
 }
+.admin-container input[type="text"]{
+    width: 90%;
+    padding: 5px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
 
 .signup-container input[type="text"],
 .signup-container input[type="password"],
 .signup-container input[type="email"],
 .login-container input[type="text"],
-.login-container input[type="password"] {
+.login-container input[type="password"]
+{
     width: 90%;
     padding: 10px;
     margin: 10px 0;
@@ -137,8 +150,9 @@ h3{
 }
 
 .signup-container button,
-.login-container button {
-    width: 100%;
+.login-container button,
+.admin-container button {
+    width: 95%;
     padding: 10px;
     background-color: #007BFF;
     color: #fff;
@@ -183,6 +197,17 @@ h3{
     background-color: #ee4b2b;
     margin-bottom:1em;
 }
+
+.cart-container {
+    /* position: fixed; */
+    top: 20px;
+    right: 300px;
+    height: 100%;
+    width: 50%;
+    background-color: #f4f4f4;
+    transition: right 0.3s ease-in-out;
+}
+
 
     @media (max-width: 768px) {
         /* CSS rules for tablets and smaller screens */
