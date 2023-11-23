@@ -1,9 +1,6 @@
 import axios from 'axios';
 import bcrypt from 'bcrypt';
 
-
-
-
 export default function routes(db){
 
     async function home(req,res){
@@ -16,7 +13,7 @@ export default function routes(db){
                 shoes : data
             })
     }
-
+    
     async function signingUp(req,res){
         try {
             const hashedPassword = await bcrypt.hash(req.body.password, 10)
@@ -33,19 +30,19 @@ export default function routes(db){
                                             })
                                             registering
                                             
-                                            res.render('signup',{message : 'Successfully registered'})
+                                            res.render('login',{message : 'Successfully registered'})
         } catch (error) {
             console.log(error)
         }
 
     }
-
+    // Route for logging in 
     async function login(req,res){
         try {
             const userName = req.body.usernamel
             const passWord = req.body.password
             
-            const userEncryptedPassword = await axios.get(`https://shoe-api-xpy7.onrender.com/api/user/Mercy`)
+            const userEncryptedPassword = await axios.get(`https://shoe-api-xpy7.onrender.com/api/user/${userName}`)
                                                      .then(function(result){
                                                         return result.data.getHashedPassword.user_password
                                                      })
@@ -56,13 +53,13 @@ export default function routes(db){
                                                 })
             console.log(userName, userEncryptedPassword)
 
-            const passwordMatch = bcrypt.compareSync(passWord, userEncryptedPassword)
+            const passwordMatch = await bcrypt.compare(passWord, userEncryptedPassword)
             console.log(passwordMatch)
 
             if(isUserExisting && passwordMatch){
                 
 
-                const orderCode = await axios.get(`https://shoe-api-xpy7.onrender.com/order-cart/create?username=${userName}`)
+                const orderCode = await axios.get(`http://shoe-api-xpy7.onrender.com/api/order-cart/create?username=${userName}`)
                                              .then(function(result){
                                                 return result.data.orderCode
                                              })
@@ -209,7 +206,7 @@ export default function routes(db){
                 size_url
             };
 
-            const adminAdd = await axios.post(`https://shoe-api-xpy7.onrender.com/shoes`,shoe)
+            const adminAdd = await axios.post(`http://shoe-api-xpy7.onrender.com/api/shoes`,shoe)
                                         .then(function(result){
                                             result.data
                                         }) 
